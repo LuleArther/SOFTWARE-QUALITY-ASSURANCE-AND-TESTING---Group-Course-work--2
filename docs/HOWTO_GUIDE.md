@@ -34,14 +34,23 @@ Install these first:
 
 ### Check installation (copy and run in terminal)
 
+**macOS / Linux:**
 ```bash
 git --version
 python3 --version
 ```
 
+**Windows (PowerShell or Command Prompt):**
+```powershell
+git --version
+python --version
+```
+
 Expected:
 - Git prints a version (example: `git version 2.x.x`)
 - Python prints version 3.10+ (example: `Python 3.11.x`)
+
+> **Windows note:** On Windows, Python is usually invoked as `python` (not `python3`). The commands in this guide show both where they differ.
 
 ---
 
@@ -64,8 +73,14 @@ Expected:
 
 ### Step 4.1 Create virtual environment
 
+**macOS / Linux:**
 ```bash
 python3 -m venv venv
+```
+
+**Windows (PowerShell or Command Prompt):**
+```powershell
+python -m venv venv
 ```
 
 Expected:
@@ -83,13 +98,26 @@ source venv/bin/activate
 venv\Scripts\Activate.ps1
 ```
 
+> **Windows PowerShell note:** If you get a "running scripts is disabled" error, run this command once first, then retry activation:
+> ```powershell
+> Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+> ```
+
+#### Windows (Command Prompt / cmd.exe)
+```cmd
+venv\Scripts\activate.bat
+```
+
 Expected:
 - Terminal line starts with `(venv)`
 
 ### Step 4.3 Install required packages
 
+> ⚠️ **Common mistake on Windows:** Do NOT type `python pip install -r requirements.txt`.  
+> The correct command is below (works on all platforms):
+
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 Expected:
@@ -102,7 +130,13 @@ Expected:
 
 Start the server:
 
+**macOS / Linux:**
 ```bash
+python src/app.py
+```
+
+**Windows:**
+```powershell
 python src/app.py
 ```
 
@@ -118,9 +152,16 @@ Keep this terminal open while testing.
 
 Open a **new terminal tab/window** (keep server running in old terminal), activate venv again:
 
+**macOS / Linux:**
 ```bash
 cd SOFTWARE-QUALITY-ASSURANCE-AND-TESTING---Group-Course-work--2
 source venv/bin/activate
+```
+
+**Windows:**
+```powershell
+cd SOFTWARE-QUALITY-ASSURANCE-AND-TESTING---Group-Course-work--2
+venv\Scripts\Activate.ps1
 ```
 
 ---
@@ -347,13 +388,30 @@ Expected:
 ## 9) Common errors and fixes
 
 ### Error: `python: command not found`
-Use `python3` instead of `python`.
+Use `python3` instead of `python` (macOS/Linux). On Windows, use `python`.
 
 ### Error: `ModuleNotFoundError`
 You probably did not install dependencies.
 Run:
 ```bash
+python -m pip install -r requirements.txt
+```
+
+### Error: `python pip install -r requirements.txt` fails (Windows)
+You mistyped the command. Do **not** put `python` before `pip` like that.
+Use one of these instead:
+```powershell
+python -m pip install -r requirements.txt
+```
+or simply:
+```powershell
 pip install -r requirements.txt
+```
+
+### Error: `running scripts is disabled` (Windows PowerShell)
+Run this once to allow scripts, then activate the venv again:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
 ### Error: `Address already in use` (port 5000 busy)
@@ -366,8 +424,16 @@ Use:
 
 ### Error: Database confusion after many tests
 Delete local DB and restart app:
+
+**macOS / Linux:**
 ```bash
 rm users.db
+python src/app.py
+```
+
+**Windows:**
+```powershell
+del users.db
 python src/app.py
 ```
 
@@ -394,11 +460,26 @@ In the terminal where server is running, press:
 
 ## 12) Quick command summary
 
+**macOS / Linux:**
 ```bash
 # Setup
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
+
+# Run API
+python src/app.py
+
+# Run tests
+python -m pytest tests/ -v
+```
+
+**Windows (PowerShell):**
+```powershell
+# Setup
+python -m venv venv
+venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
 
 # Run API
 python src/app.py
