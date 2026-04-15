@@ -27,13 +27,16 @@ A comprehensive RESTful API for user registration, authentication, and profile m
 2. **Create virtual environment**
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source venv/bin/activate  # On Windows: venv\Scripts\Activate.ps1
    ```
+   > **Windows PowerShell note:** If activation fails with "scripts disabled", run once:
+   > `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
 
 3. **Install dependencies**
    ```bash
-   pip install -r requirements.txt
+   python -m pip install -r requirements.txt
    ```
+   > ⚠️ **Common Windows mistake:** Do not type `python pip install ...`. Use `python -m pip install ...`.
 
 4. **Run the application**
    ```bash
@@ -350,10 +353,32 @@ python src/app.py --port 5001
 ```
 
 ### Database Issues
+**macOS / Linux:**
 ```bash
-# Reset database
 rm users.db
 python src/app.py
+```
+**Windows:**
+```powershell
+del users.db
+python src/app.py
+```
+
+### Windows: `python pip install` error
+Do **not** run `python pip install -r requirements.txt` — this is a common mistake on Windows.  
+Use either:
+```powershell
+python -m pip install -r requirements.txt
+```
+or:
+```powershell
+pip install -r requirements.txt
+```
+
+### Windows: "running scripts is disabled"
+If activating the virtual environment fails, run once in PowerShell:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
 ### Test Failures
