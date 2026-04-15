@@ -294,6 +294,9 @@ python src/app.py
 
 ## Documentation
 
+### Beginner Guide
+- [HOWTO_GUIDE.md](docs/HOWTO_GUIDE.md) - Step-by-step beginner guide to run and test the coursework
+
 ### API Documentation
 - [API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md) - Complete API reference with examples
 
