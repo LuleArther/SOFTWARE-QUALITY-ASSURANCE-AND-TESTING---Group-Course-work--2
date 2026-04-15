@@ -9,7 +9,7 @@
 ## Group Members and Contributions
 
 ### Member 1: [Group Member Name]
-**Contribution Percentage:** 25%
+**Contribution Percentage:** 20%
 
 **Responsibilities:**
 - API Design and Architecture
@@ -29,7 +29,7 @@
 ---
 
 ### Member 2: [Group Member Name]
-**Contribution Percentage:** 25%
+**Contribution Percentage:** 20%
 
 **Responsibilities:**
 - Input validation and error handling
@@ -49,7 +49,7 @@
 ---
 
 ### Member 3: [Group Member Name]
-**Contribution Percentage:** 25%
+**Contribution Percentage:** 20%
 
 **Responsibilities:**
 - Integration testing
@@ -69,7 +69,7 @@
 ---
 
 ### Member 4: [Group Member Name]
-**Contribution Percentage:** 25%
+**Contribution Percentage:** 20%
 
 **Responsibilities:**
 - API documentation
@@ -85,6 +85,26 @@
 - README and project documentation
 
 **Evidence:** Git commits related to documentation and reporting
+
+---
+
+### Member 5: [Group Member Name]
+**Contribution Percentage:** 20%
+
+**Responsibilities:**
+- Final quality review and regression testing
+- Presentation slide design and live demo preparation
+- Repository organization and submission checklist validation
+- Meeting coordination and progress tracking
+- Final proofreading of all deliverables
+
+**Deliverables:**
+- Final QA verification notes
+- Presentation materials and demo script
+- Repository structure review and cleanup
+- Submission readiness checklist
+
+**Evidence:** Git commits related to final review, presentation support, and delivery checks
 
 ---
 
@@ -116,6 +136,7 @@ The following aspects represent collaborative group work:
 - Member 2: Set up test framework
 - Member 3: Plan CI/CD pipeline
 - Member 4: Create documentation structure
+- Member 5: Set up project coordination and timeline tracking
 
 ### Meeting 2: Development Progress
 **Date:** April 8, 2026
@@ -131,6 +152,8 @@ The following aspects represent collaborative group work:
 - Member 1: Complete authentication
 - Member 2: Finalize unit tests
 - Member 3: Implement CI/CD
+- Member 4: Finalize core documentation
+- Member 5: Prepare presentation draft and demo flow
 
 ### Meeting 3: Final Review
 **Date:** April 14, 2026
@@ -144,6 +167,7 @@ The following aspects represent collaborative group work:
 **Action Items:**
 - All members: Final code review
 - Member 4: Compile final report
+- Member 5: Validate final submission checklist
 - All members: Prepare presentation
 
 ---
@@ -220,4 +244,5 @@ Each team member has contributed substantially to the project's success and can 
 2. _____________________________ Date: _______
 3. _____________________________ Date: _______
 4. _____________________________ Date: _______
+5. _____________________________ Date: _______
 

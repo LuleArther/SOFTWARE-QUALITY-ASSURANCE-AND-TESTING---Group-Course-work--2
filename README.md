@@ -421,6 +421,7 @@ For questions about this project, contact the development team:
 - [Team Member 2]
 - [Team Member 3]
 - [Team Member 4]
+- [Team Member 5]
 
 ---
 
