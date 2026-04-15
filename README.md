@@ -20,7 +20,7 @@ A comprehensive RESTful API for user registration, authentication, and profile m
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone <https://github.com/LuleArther/SOFTWARE-QUALITY-ASSURANCE-AND-TESTING---Group-Course-work--2>
    cd "Course work 2"
    ```
 
