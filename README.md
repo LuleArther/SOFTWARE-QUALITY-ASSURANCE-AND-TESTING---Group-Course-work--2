@@ -40,7 +40,7 @@ A comprehensive RESTful API for user registration, authentication, and profile m
 
 4. **Run the application**
    ```bash
-   python src/app.py
+   python -m src.app
    ```
    The API will be available at `http://localhost:5000`
 
@@ -286,11 +286,11 @@ export JWT_SECRET_KEY=your-secret-key
 ### Running Modes
 ```bash
 # Development mode (default)
-python src/app.py
+python -m src.app
 
 # Production (set FLASK_ENV)
 export FLASK_ENV=production
-python src/app.py
+python -m src.app
 ```
 
 ---
@@ -349,14 +349,14 @@ python src/app.py
 ### Port Already in Use
 ```bash
 # Use different port
-python src/app.py --port 5001
+flask --app src.app run --port 5001
 ```
 
 ### Database Issues
 **macOS / Linux:**
 ```bash
 rm users.db
-python src/app.py
+python -m src.app
 ```
 **Windows:**
 ```powershell

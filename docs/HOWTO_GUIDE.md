@@ -135,11 +135,6 @@ Start the server:
 python src/app.py
 ```
 
-**Windows:**
-```powershell
-python src/app.py
-```
-
 Expected output (similar):
 - Flask starts on `http://127.0.0.1:5000`
 - Terminal shows server running message
@@ -150,7 +145,11 @@ Keep this terminal open while testing.
 
 ## 6) Manual testing (with inputs and expected outputs)
 
-Open a **new terminal tab/window** (keep server running in old terminal), activate venv again:
+You can test in **either Bash (curl)** or **Postman**. Both options are shown for each test below.
+
+### Step 6.1 Prepare terminal (for Bash users)
+
+Open a **new terminal tab/window** (keep server running in old terminal), then activate venv:
 
 **macOS / Linux:**
 ```bash
@@ -164,14 +163,36 @@ cd SOFTWARE-QUALITY-ASSURANCE-AND-TESTING---Group-Course-work--2
 venv\Scripts\Activate.ps1
 ```
 
+Set a base URL once:
+
+```bash
+export BASE_URL=http://127.0.0.1:5000
+# If port 5000 is busy, use:
+# export BASE_URL=http://127.0.0.1:5001
+```
+
+### Step 6.2 Prepare Postman (for Postman users)
+
+1. Open Postman
+2. Import file: `docs/API_Postman_Collection.json`
+3. Create/select an Environment and set:
+   - `base_url = http://127.0.0.1:5000`
+   - If port 5000 is busy, use `http://127.0.0.1:5001`
+4. Add variable `access_token` (leave blank for now)
+
 ---
 
 ### Test 1: Health Check
 
-Command:
+**Bash (curl):**
 ```bash
-curl -X GET http://127.0.0.1:5000/api/health
+curl -X GET "$BASE_URL/api/health"
 ```
+
+**Postman:**
+- Method: `GET`
+- URL: `{{base_url}}/api/health`
+- Click **Send**
 
 Expected output (example):
 ```json
@@ -184,9 +205,9 @@ Expected status: `200 OK`
 
 ### Test 2: Register User
 
-Input:
+**Bash (curl):**
 ```bash
-curl -X POST http://127.0.0.1:5000/api/auth/register \
+curl -X POST "$BASE_URL/api/auth/register" \
   -H "Content-Type: application/json" \
   -d '{
     "username": "john_student",
@@ -195,6 +216,21 @@ curl -X POST http://127.0.0.1:5000/api/auth/register \
     "first_name": "John",
     "last_name": "Student"
   }'
+```
+
+**Postman:**
+- Method: `POST`
+- URL: `{{base_url}}/api/auth/register`
+- Header: `Content-Type: application/json`
+- Body → `raw` → `JSON`:
+```json
+{
+  "username": "john_student",
+  "email": "john@example.com",
+  "password": "Password123",
+  "first_name": "John",
+  "last_name": "Student"
+}
 ```
 
 Expected output (example):
@@ -217,14 +253,26 @@ Expected status: `201 Created`
 
 ### Test 3: Login User
 
-Input:
+**Bash (curl):**
 ```bash
-curl -X POST http://127.0.0.1:5000/api/auth/login \
+curl -X POST "$BASE_URL/api/auth/login" \
   -H "Content-Type: application/json" \
   -d '{
     "username": "john_student",
     "password": "Password123"
   }'
+```
+
+**Postman:**
+- Method: `POST`
+- URL: `{{base_url}}/api/auth/login`
+- Header: `Content-Type: application/json`
+- Body → `raw` → `JSON`:
+```json
+{
+  "username": "john_student",
+  "password": "Password123"
+}
 ```
 
 Expected output includes:
@@ -233,17 +281,25 @@ Expected output includes:
 
 Expected status: `200 OK`
 
-Save the `access_token` value. You will use it in the next tests.
+Save the `access_token` value:
+- Bash: copy it from login response
+- Postman: set Environment variable `access_token` to that token
 
 ---
 
 ### Test 4: List Users (Protected Endpoint)
 
-Input:
+**Bash (curl):**
 ```bash
-curl -X GET http://127.0.0.1:5000/api/users \
+curl -X GET "$BASE_URL/api/users" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE"
 ```
+
+**Postman:**
+- Method: `GET`
+- URL: `{{base_url}}/api/users`
+- Authorization tab → Type: `Bearer Token`
+- Token: `{{access_token}}`
 
 Expected output:
 - JSON array of users
@@ -257,11 +313,17 @@ If token is missing/invalid, expected:
 
 ### Test 5: Get User by ID
 
-Input:
+**Bash (curl):**
 ```bash
-curl -X GET http://127.0.0.1:5000/api/users/1 \
+curl -X GET "$BASE_URL/api/users/1" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE"
 ```
+
+**Postman:**
+- Method: `GET`
+- URL: `{{base_url}}/api/users/1`
+- Authorization tab → Type: `Bearer Token`
+- Token: `{{access_token}}`
 
 Expected output:
 - JSON object with user details for ID 1
@@ -276,15 +338,29 @@ If user does not exist (`/api/users/999`), expected:
 
 ### Test 6: Update User
 
-Input:
+**Bash (curl):**
 ```bash
-curl -X PUT http://127.0.0.1:5000/api/users/1 \
+curl -X PUT "$BASE_URL/api/users/1" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
     "first_name": "Johnny",
     "email": "johnny@example.com"
   }'
+```
+
+**Postman:**
+- Method: `PUT`
+- URL: `{{base_url}}/api/users/1`
+- Authorization tab → Type: `Bearer Token`
+- Token: `{{access_token}}`
+- Header: `Content-Type: application/json`
+- Body → `raw` → `JSON`:
+```json
+{
+  "first_name": "Johnny",
+  "email": "johnny@example.com"
+}
 ```
 
 Expected output:
@@ -297,11 +373,17 @@ Expected status: `200 OK`
 
 ### Test 7: Delete User
 
-Input:
+**Bash (curl):**
 ```bash
-curl -X DELETE http://127.0.0.1:5000/api/users/1 \
+curl -X DELETE "$BASE_URL/api/users/1" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE"
 ```
+
+**Postman:**
+- Method: `DELETE`
+- URL: `{{base_url}}/api/users/1`
+- Authorization tab → Type: `Bearer Token`
+- Token: `{{access_token}}`
 
 Expected output:
 ```json
@@ -315,21 +397,21 @@ Expected status: `200 OK`
 ### Validation tests (important for report)
 
 #### A) Invalid email
-Input email: `"email": "wrong-email"`
+Use the Register request and set email to `wrong-email`.
 
 Expected:
 - Status `400 Bad Request`
 - Error message for invalid email
 
 #### B) Weak password
-Input password: `"password": "123"`
+Use the Register request and set password to `123`.
 
 Expected:
 - Status `400 Bad Request`
 - Password validation error
 
 #### C) Duplicate email
-Register another user using same email
+Register another user with an email that already exists.
 
 Expected:
 - Status `409 Conflict`
@@ -372,8 +454,9 @@ python -m pytest tests/test_system.py -v
 
 1. Open Postman
 2. Import file: `docs/API_Postman_Collection.json`
-3. Set variable `base_url = http://127.0.0.1:5000`
-4. Run requests in this order:
+3. Set variable `base_url = http://127.0.0.1:5000` (or `http://127.0.0.1:5001` if 5000 is busy)
+4. Set variable `access_token` after running Login request
+5. Run requests in this order:
    - Health Check
    - Register User
    - Login User
@@ -391,8 +474,12 @@ Expected:
 Use `python3` instead of `python` (macOS/Linux). On Windows, use `python`.
 
 ### Error: `ModuleNotFoundError`
-You probably did not install dependencies.
-Run:
+You are likely running the app with the wrong command.
+Run from the project root:
+```bash
+python -m src.app
+```
+If dependencies are missing, run:
 ```bash
 python -m pip install -r requirements.txt
 ```
@@ -415,12 +502,24 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
 ### Error: `Address already in use` (port 5000 busy)
-Stop previous server process or restart terminal.
+Stop previous server process or use port 5001.
+
+For Bash examples:
+```bash
+export BASE_URL=http://127.0.0.1:5001
+```
+
+For Postman examples:
+- Change `base_url` variable to `http://127.0.0.1:5001`
 
 ### Error: `401 Unauthorized`
 Token missing/expired/wrong format.
 Use:
 `Authorization: Bearer <token>`
+
+If you see `Missing Authorization Header`, check:
+- Bash: header must be exactly `-H "Authorization: Bearer YOUR_TOKEN"`
+- Postman: Authorization tab must be set to `Bearer Token`
 
 ### Error: Database confusion after many tests
 Delete local DB and restart app:
@@ -428,12 +527,6 @@ Delete local DB and restart app:
 **macOS / Linux:**
 ```bash
 rm users.db
-python src/app.py
-```
-
-**Windows:**
-```powershell
-del users.db
 python src/app.py
 ```
 
@@ -482,7 +575,7 @@ venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 
 # Run API
-python src/app.py
+python -m src.app
 
 # Run tests
 python -m pytest tests/ -v

@@ -21,6 +21,15 @@ def create_app(config_class=DevelopmentConfig):
         db.create_all()
     
     # Routes
+
+    @app.route('/', methods=['GET'])
+    def root():
+        """Root endpoint for quick server status check"""
+        return jsonify({
+            'message': 'Server is running successfully',
+            'status': 'ok',
+            'health_check': '/api/health'
+        }), 200
     
     @app.route('/api/health', methods=['GET'])
     def health_check():
@@ -103,7 +112,7 @@ def create_app(config_class=DevelopmentConfig):
         if not user.is_active:
             return jsonify({'error': 'User account is inactive'}), 401
         
-        access_token = create_access_token(identity=user.id)
+        access_token = create_access_token(identity=str(user.id))
         return jsonify({
             'message': 'Login successful',
             'access_token': access_token,
